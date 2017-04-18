@@ -1,4 +1,6 @@
 package Objects;
+import Exceptions.StockException;
+
 import java.io.Serializable;
 import java.util.Arrays;
 

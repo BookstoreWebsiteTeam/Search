@@ -17,8 +17,16 @@
         out.println(i);
     %>
         <strong>Hello</strong>
+        <br/>
     <%
-
+            if(i != 5)
+            {
+                out.println("<strong>Hello</strong><br/>");
+            }
+            else
+            {
+                out.println("<strong>Hello World</strong><br/>");
+            }
     }
 
 %>

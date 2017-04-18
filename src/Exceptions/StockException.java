@@ -1,4 +1,4 @@
-package Objects;
+package Exceptions;
 
 /**
  * Created by Myles on 4/12/17.
