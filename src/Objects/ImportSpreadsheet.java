@@ -127,6 +127,7 @@ public class ImportSpreadsheet{
                         if (increment != 0) {
                             integer = Integer.parseInt(nextLine[increment]);
                         } else {
+                            book.setIsbnForCovers(nextLine[increment]);
                             long1 = Long.parseLong(nextLine[increment].replace("-", ""));
                         }
                     }

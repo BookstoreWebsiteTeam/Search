@@ -28,17 +28,15 @@ public class Controller extends HttpServlet {
         //book = search.searchByISBN(isbn);
 
         File file = new File(param);
-
         //request.setAttribute("results", book);
-        PrintWriter out = response.getWriter();
-        out.println(file.isFile());
-        out.println(param);
+        //PrintWriter out = response.getWriter();
+        //out.println(file.isFile());
+        //out.println(param);
         //out.println(book.getBookName());
         //out.println("hello");
 
 
-        //if(request.getAttribute())
-        //getServletContext().getRequestDispatcher(page).forward(request, response);
+        getServletContext().getRequestDispatcher(page).forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
