@@ -93,8 +93,26 @@ public class Search {
             searchResults.add((Book) mentry.getValue());
         }
 
-
+        searchResults = deleteDuplicates(searchResults);
         return searchResults;
+    }
+
+    public ArrayList<Book> deleteDuplicates(ArrayList<Book> books)
+    {
+        TreeMap<Long, Book> check = new TreeMap<>();
+        ArrayList<Book> results = new ArrayList<>();
+        for (int i = 0; i < books.size(); i++) {
+            check.put(books.get(i).getIsbn(), books.get(i));
+        }
+        Set set = check.entrySet();
+        Iterator iterator = set.iterator();
+        while (iterator.hasNext())
+        {
+            Map.Entry entry = (Map.Entry) iterator.next();
+            Book book = (Book) entry.getValue();
+            results.add(book);
+        }
+        return results;
     }
 
     public static void main(String[] args) {
@@ -106,14 +124,19 @@ public class Search {
             Map.Entry mentry = (Map.Entry) iterator.next();
             System.out.println("key is: " + mentry.getKey() + " & Value is: " + mentry.getValue());
         }*/
-        Book book = search.searchByISBN(9780132492676L);
+        /*Book book = search.searchByISBN(9780132492676L);
         System.out.println(book.getBookName());
         BooksDatabase booksDatabase = new BooksDatabase(new File("books.bks"));
         book.setBookName("123");
         booksDatabase.deleteBook(book);
         book = search.searchByISBN(9780132492676L);
-        System.out.println(book.getBookName());
+        System.out.println(book.getBookName());*/
 
+
+
+        /*for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i).getIsbn());
+        }*/
 
 
     }
