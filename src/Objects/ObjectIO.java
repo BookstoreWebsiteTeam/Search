@@ -1,4 +1,6 @@
 package Objects;
+import org.apache.commons.io.IOUtils;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -77,6 +79,17 @@ public class ObjectIO {
         ObjectIO objectIO = new ObjectIO(new File("books.bks"));
         ArrayList<Book> readBooks = (ArrayList<Book>) objectIO.readObject();
         return readBooks;
+    }
+
+    public OutputStream inputToOutput(InputStream in) throws IOException {
+        OutputStream out = new OutputStream() {
+            @Override
+            public void write(int b) throws IOException {
+
+            }
+        };
+        IOUtils.copy(in, out);
+        return out;
     }
 
     public static void main(String[] args) {
