@@ -284,11 +284,13 @@ public class ImportSpreadsheet{
         TreeMap<String, ArrayList<Book>> courseNameList = new TreeMap<>();
         for (int i = 0; i < this.bookList.size(); i++) {
             String courseName = this.bookList.get(i).getCourse();
+            courseName = courseName.replace(" ", "");
             courseName = courseName.toLowerCase();
             courseNameList.put(courseName, new ArrayList<>());
         }
         for (int i = 0; i < this.bookList.size(); i++) {
             String courseName = this.bookList.get(i).getCourse();
+            courseName = courseName.replace(" ", "");
             courseName = courseName.toLowerCase();
             ArrayList<Book> courses = courseNameList.get(courseName);
             courses.add(bookList.get(i));

@@ -68,19 +68,57 @@ public class Search {
         return searchResults;
     }
 
+
     public TreeMap<String, Book> searchByProfessor(String search)
     {
         File file = new File("books.bks");
-        TreeMap<String, Book> books = new TreeMap<>();
-        //BooksDatabase booksDatabase = new BooksDatabase(file);
-        //booksDatabase.setBookList(booksDatabase.getBooks());
-        return books;
+        TreeMap<String, Book> professors = new TreeMap<>();
+        BooksDatabase booksDatabase = new BooksDatabase(file);
+        books.setBookList(booksDatabase.getBooks());
+        TreeMap<String, ArrayList<Book>> professorList =books.importToProfessorList();
+        Set set = professorList.entrySet();
+        Iterator iterator = set.iterator();
+        ArrayList<String> allProfessors = new ArrayList<>();
+        ArrayList<String> selectProfessors = new ArrayList<>();
+
+        while(iterator.hasNext()) {
+            Map.Entry mentry = (Map.Entry) iterator.next();
+            allProfessors.add((String) mentry.getKey());
+        }
+        for (int i = 0; i < allProfessors.size(); i++) {
+            if(allProfessors.get(i).contains(search))
+            {
+                selectProfessors.add(allProfessors.get(i));
+            }
+        }
+
+        for (int i = 0; i < professorList.size(); i++) {
+            professorList.entrySet();
+        }
+        return professors;
     }
+
+    public ArrayList<Book> searchByDescription(String search)
+    {
+        File file = new File("books.bks");
+        BooksDatabase booksDatabase = new BooksDatabase(file);
+        books.setBookList(booksDatabase.getBooks());
+        ArrayList<Book> results = new ArrayList<>();
+        for (int i = 0; i < books.getBookList().size(); i++) {
+            if(books.getBookList().get(i).getDescription().contains(search))
+            {
+                results.add(books.getBookList().get(i));
+            }
+        }
+        return results;
+    }
+
 
     public ArrayList<Book> populateKeywordSearch(String search)
     {
         ArrayList<Book> searchResults = new ArrayList<>();
         TreeMap<String, Book> titles = searchByTitle(search);
+        //searchBy
         boolean isDigit = true;
         char[] chars = search.toCharArray();
         Character[] isbnconvert = new Character[chars.length];
@@ -104,7 +142,10 @@ public class Search {
             Map.Entry mentry = (Map.Entry) iterator.next();
             searchResults.add((Book) mentry.getValue());
         }
-
+        ArrayList<Book> descriptionSearch = searchByDescription(search);
+        for (int i = 0; i < descriptionSearch.size(); i++) {
+            searchResults.add(descriptionSearch.get(i));
+        }
         searchResults = deleteDuplicates(searchResults);
         return searchResults;
     }
@@ -129,16 +170,20 @@ public class Search {
         return results;
     }
 
-    public /*TreeMap<String, ArrayList<Book>>*/ void searchByCourseName(String search)
+    public TreeMap<String, ArrayList<Book>> searchByCourseName(String search)
     {
+        TreeMap<String, ArrayList<Book>> results = new TreeMap<>();
+        File file = new File("books.bks");
+        BooksDatabase booksDatabase = new BooksDatabase(file);
+        books.setBookList(booksDatabase.getBooks());
         String courseName = search.replace(" ", "");
         courseName = courseName.toLowerCase();
         TreeMap<String, ArrayList<Book>> courseNames = books.importToCourseNameList();
         if(courseNames.containsKey(courseName))
         {
-            System.out.println(courseNames.get(courseName).get(0).getBookName());
+            results.put(courseName, courseNames.get(courseName));
         }
-        //return courseNames;
+        return results;
     }
 
     public ArrayList<Book> populateCourseSearch(String search)
@@ -154,14 +199,17 @@ public class Search {
         }
         else
         {
-            /*ArrayList<Book> courseNames = searchByCourseName(search);
+            TreeMap<String, ArrayList<Book>> courseNames = searchByCourseName(search);
             for (int i = 0; i < courseNames.size(); i++) {
-                results.add(courseNames.get(i));
-            }*/
+                for (int j = 0; j < 4; j++) {
+                    //results.add(courseNames.get(i));
+                }
+            }
         }
         results = deleteDuplicates(results);
         return results;
     }
+
 
 
     public static void main(String[] args) {
@@ -183,10 +231,9 @@ public class Search {
 
 
 
-        /*for (int i = 0; i < list.size(); i++) {
-            System.out.println(list.get(i).getIsbn());
-        }*/
-        search.searchByCourseName("ECON 2107");
+
+
+        search.searchByProfessor("zey");
         //Book book = search.searchByISBN(9789544007737L);
         //System.out.println(book.getBookName());
     }
