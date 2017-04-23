@@ -13,6 +13,7 @@ import javax.servlet.http.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.TreeMap;
 
 /**
  * Created by Myles on 4/15/17.
@@ -40,7 +41,7 @@ public class Controller extends HttpServlet {
         }
         else if(type.equals("course"))
         {
-
+            ArrayList<Book> courses = search.populateCourseSearch(input);
         }
         else if(type.equals("professor"))
         {
