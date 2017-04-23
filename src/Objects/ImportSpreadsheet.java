@@ -279,6 +279,24 @@ public class ImportSpreadsheet{
         return professorList;
     }
 
+    public TreeMap<String, ArrayList<Book>> importToCourseNameList()
+    {
+        TreeMap<String, ArrayList<Book>> courseNameList = new TreeMap<>();
+        for (int i = 0; i < this.bookList.size(); i++) {
+            String courseName = this.bookList.get(i).getCourse();
+            courseName = courseName.toLowerCase();
+            courseNameList.put(courseName, new ArrayList<>());
+        }
+        for (int i = 0; i < this.bookList.size(); i++) {
+            String courseName = this.bookList.get(i).getCourse();
+            courseName = courseName.toLowerCase();
+            ArrayList<Book> courses = courseNameList.get(courseName);
+            courses.add(bookList.get(i));
+            courseNameList.replace(courseName, courses);
+        }
+        return courseNameList;
+    }
+
     /*public void printTreeMap(TreeMap treeMap)
     {
         Set set = treeMap.entrySet();

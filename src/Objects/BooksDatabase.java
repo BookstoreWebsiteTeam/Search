@@ -1,8 +1,9 @@
 package Objects;
 
 import Exceptions.StockException;
+import org.apache.commons.io.IOUtils;
 
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
 
 /**
@@ -21,12 +22,13 @@ public class BooksDatabase {
             ObjectIO objectIO = new ObjectIO(getBookFile());
             objectIO.writeObject(getBooks());
         }
-        else if(getBookFile().exists())
+        if(getBookFile().exists())
         {
             ObjectIO objectIO = new ObjectIO(getBookFile());
             this.books = (ArrayList<Book>) objectIO.readObject();
         }
     }
+
 
     public File getBookFile() {
         return bookFile;

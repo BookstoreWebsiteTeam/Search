@@ -18,6 +18,7 @@
         //out.println(book1.getBookName());
         Book searchResults = (Book)request.getAttribute("results");
         out.println(searchResults.toString());
+
     %>
 
 </body>

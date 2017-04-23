@@ -1,12 +1,10 @@
 <%@ page import="Objects.Search" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="Objects.Book" %>
-<%@ page import="java.io.InputStream" %>
-<%@ page import="java.io.ObjectInputStream" %>
-<%@ page import="java.io.File" %>
 <%@ page import="Objects.ObjectIO" %>
 <%@ page import="Objects.BooksDatabase" %>
-<%@ page import="org.apache.commons.io.IOUtils" %><%--
+<%@ page import="org.apache.commons.io.IOUtils" %>
+<%@ page import="java.io.*" %><%--
   Created by IntelliJ IDEA.
   User: Myles
   Date: 4/15/17
@@ -19,36 +17,37 @@
     <title>Bookstore Homepage</title>
 </head>
 <body>
+	<img src="Kennesaw_State_University.png" width="300" height="100">
 
-	<img src="Kennesaw_State_University.png" width="200" height="100">
-    <form name="searchForm" action="/Controller" method="post">
-		<input name="search" type="text" value="" size="50"/>
-        <input type="submit" name="Click" value="Submit" >
+	<% for (int i = 0; i < 5; i++) {
+		out.println("</br>");
+	} %>
 
-	</form>
+	<div class="SearchForms">
+   		 <form name="searchForm" action="/Controller" method="post">
+			 <input name="search" type="text" value="" width="100" height="400" size="200"  align="center"/>
+			 <% for (int i = 0; i < 3; i++) {
+				 out.println("</br>");
+			 } %>
+			 <input type="submit" name="Click" value="Submit" >
+			 <select name="type">
+				 <option value="keyword">Keyword</option>
+				 <option value="course">Course</option>
+				 <option value="professor">Professor</option>
+			 </select>
+
+		 </form>
+	</div>
+	<style>
+	.SearchForms
+	{
+		text-align:center;
+		box-shadow: #2c4557;
+	}
+	</style>
 	</br>
-	<%
-		try {
-			InputStream in = application.getResourceAsStream("/WEB-INF/books.bks");
-
-			ObjectInputStream object = new ObjectInputStream(in);
-			ArrayList<Book> books =  (ArrayList<Book>) object.readObject();
-
-			File file = new File("books.bks");
-			BooksDatabase booksDatabase = new BooksDatabase(file);
-			ArrayList<Book> books1 = booksDatabase.getBooks();
-			for (int i = 0; i < books1.size(); i++) {
-				out.println(books1.get(i).getIsbn());
-			}
 
 
-		}
-		catch (NullPointerException ex)
-		{
-		    out.println(ex.getMessage());
-		}
-	%>
-	
-	<a href="/Controller?page=SearchResults"> Search Results</a>
+
 </body>
 </html>
